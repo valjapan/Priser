@@ -20,7 +20,6 @@ public class MainActivity extends AppCompatActivity {
     public void next(View v) {
         Intent intent = new Intent(this, PriseActivity.class);
         startActivity(intent);
-        finish();
 
     }
 

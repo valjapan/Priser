@@ -37,7 +37,7 @@ public class PriseActivity extends AppCompatActivity {
     }
 
     private List<String> getListData() {
-        list.add("ここに結果が追加されるよ");
+        list.add("ここに結果が追加されるよ。長く書いてみるよ。ほげほげ。");
 
         return list;
     }

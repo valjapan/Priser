@@ -14,8 +14,9 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="2"
+            android:layout_weight="1"
             android:background="@color/cyan_50"
+            android:elevation="4dp"
             android:orientation="horizontal">
 
             <android.support.v7.widget.RecyclerView
@@ -23,7 +24,8 @@
                 android:id="@+id/priseRecyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginBottom="6dp"
+                android:layout_marginLeft="4dp"
+                android:layout_marginRight="4dp"
                 android:scrollbars="vertical">
 
             </android.support.v7.widget.RecyclerView>
@@ -35,33 +37,35 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="3"
+            android:layout_weight="1"
             android:background="@color/pink_50"
             android:orientation="horizontal">
 
             <ImageView
                 android:id="@+id/cpuImage"
-                android:layout_width="0dp"
+                android:layout_width="140dp"
                 android:layout_height="match_parent"
-                android:layout_weight="2"
+                android:layout_marginLeft="4dp"
                 android:src="@drawable/img_w_01" />
 
             <com.daasuu.bl.BubbleLayout
-                android:layout_width="100dp"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_margin="16dp"
-                android:layout_weight="3"
-                app:bl_arrowHeight="8dp"
+                android:layout_marginBottom="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginTop="16dp"
+                app:bl_arrowDirection="left"
+                app:bl_arrowHeight="16dp"
                 app:bl_arrowPosition="32dp"
-                app:bl_arrowWidth="8dp"
-                app:bl_cornersRadius="6dp"
+                app:bl_arrowWidth="10dp"
+                app:bl_cornersRadius="10dp"
                 app:bl_strokeWidth="1dp">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
-                    android:layout_margin="10dp"
+                    android:layout_margin="8dp"
                     android:text="今日もお疲れ様！"
                     android:textColor="@color/colorAccent"
                     android:textSize="25sp" />
