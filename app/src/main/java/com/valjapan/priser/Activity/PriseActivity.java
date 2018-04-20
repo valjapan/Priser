@@ -14,6 +14,8 @@ import java.util.List;
 public class PriseActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private PriseRecyclerViewAdapter priseRecyclerViewAdapter;
+    private ArrayList<String> list = new ArrayList<>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,13 +27,17 @@ public class PriseActivity extends AppCompatActivity {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(linearLayoutManager);
 
+
+
         priseRecyclerViewAdapter = new PriseRecyclerViewAdapter(getListData());
         recyclerView.setAdapter(priseRecyclerViewAdapter);
 
     }
 
     private List<String> getListData(){
-        ArrayList<String> list = new ArrayList<>();
+        list.add("ここに結果が追加されるよ");
+
+        return list;
     }
 
 }
