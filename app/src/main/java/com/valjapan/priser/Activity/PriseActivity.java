@@ -12,21 +12,23 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PriseActivity extends AppCompatActivity {
+
     private RecyclerView recyclerView;
     private PriseRecyclerViewAdapter priseRecyclerViewAdapter;
-    private ArrayList<String> list = new ArrayList<>();
+    private ArrayList<String> list;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_prise);
 
         recyclerView = (RecyclerView) findViewById(R.id.priseRecyclerView);
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(linearLayoutManager);
 
+        list = new ArrayList<>();
 
 
         priseRecyclerViewAdapter = new PriseRecyclerViewAdapter(getListData());
@@ -34,7 +36,7 @@ public class PriseActivity extends AppCompatActivity {
 
     }
 
-    private List<String> getListData(){
+    private List<String> getListData() {
         list.add("ここに結果が追加されるよ");
 
         return list;
