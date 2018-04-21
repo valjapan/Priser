@@ -6,17 +6,19 @@
     android:layout_height="match_parent"
     tools:context=".Activity.PriseActivity">
 
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@color/cyan_50"
-            android:elevation="4dp"
+            android:elevation="@dimen/cardview_default_elevation"
             android:orientation="horizontal">
 
             <android.support.v7.widget.RecyclerView
@@ -24,8 +26,6 @@
                 android:id="@+id/priseRecyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="4dp"
-                android:layout_marginRight="4dp"
                 android:scrollbars="vertical">
 
             </android.support.v7.widget.RecyclerView>

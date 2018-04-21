@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.MenuItem;
 
 import com.valjapan.priser.Adapter.PriseRecyclerViewAdapter;
 import com.valjapan.priser.R;
@@ -23,7 +24,9 @@ public class PriseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_prise);
 
+
         recyclerView = (RecyclerView) findViewById(R.id.priseRecyclerView);
+
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(linearLayoutManager);
@@ -34,12 +37,26 @@ public class PriseActivity extends AppCompatActivity {
         priseRecyclerViewAdapter = new PriseRecyclerViewAdapter(getListData());
         recyclerView.setAdapter(priseRecyclerViewAdapter);
 
+
+
+
+
     }
 
     private List<String> getListData() {
         list.add("ここに結果が追加されるよ。長く書いてみるよ。ほげほげ。");
 
         return list;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch(item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
 }

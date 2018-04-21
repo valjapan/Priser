@@ -46,6 +46,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 app:bl_arrowDirection="right"
+                                android:elevation="@dimen/cardview_compat_inset_shadow"
                                 app:bl_arrowHeight="8dp"
                                 app:bl_arrowWidth="10dp"
                                 app:bl_cornersRadius="10dp"
