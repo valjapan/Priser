@@ -4,7 +4,9 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.valjapan.priser.Adapter.PriseRecyclerViewAdapter;
 import com.valjapan.priser.R;
@@ -25,6 +27,20 @@ public class PriseActivity extends AppCompatActivity {
         setContentView(R.layout.activity_prise);
 
 
+        final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        setTitle("Prise Activity");
+        toolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_24dp);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+
+
+
         recyclerView = (RecyclerView) findViewById(R.id.priseRecyclerView);
 
 
@@ -38,10 +54,8 @@ public class PriseActivity extends AppCompatActivity {
         recyclerView.setAdapter(priseRecyclerViewAdapter);
 
 
-
-
-
     }
+
 
     private List<String> getListData() {
         list.add("ここに結果が追加されるよ。長く書いてみるよ。ほげほげ。");
@@ -52,7 +66,7 @@ public class PriseActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch(item.getItemId()) {
-            case android.R.id.home:
+            case R.id.menu_setting:
                 finish();
                 return true;
         }

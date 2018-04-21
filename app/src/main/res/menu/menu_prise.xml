@@ -3,8 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".Activity.PriseActivity">
+
     <item
-        android:id="@+id/menu_new_to_do_make_done"
+        android:id="@+id/menu_setting"
         android:icon="@drawable/ic_settings_white_24dp"
         android:orderInCategory="100"
         android:title="Setting"
