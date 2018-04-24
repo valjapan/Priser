@@ -19,6 +19,7 @@ public class PriseActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private PriseRecyclerViewAdapter priseRecyclerViewAdapter;
     private ArrayList<String> list;
+    private String timeResut = getIntent().getStringExtra("result_time");
 
 
     @Override
@@ -71,6 +72,16 @@ public class PriseActivity extends AppCompatActivity {
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void resultCheck(){
+        if (timeResut == null){
+            
+        }else{
+
+        }
+
+
     }
 
 }
