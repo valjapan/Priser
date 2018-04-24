@@ -12,19 +12,23 @@ import java.util.List;
 
 public class PriseRecyclerViewAdapter extends RecyclerView.Adapter<PriseRecyclerViewAdapter.ViewHolder> {
 
-    protected List<String> dataSet;
+    protected List<String> dataSet,timeSet;
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        public final TextView textView;
+        TextView detailTextView;
+        TextView timeTextView;
 
         public ViewHolder(View v) {
             super(v);
-            textView = (TextView) v.findViewById(R.id.detail_details);
+            detailTextView = (TextView) v.findViewById(R.id.detail_details);
+            timeTextView = (TextView) v.findViewById(R.id.detail_time);
+
         }
     }
 
-    public PriseRecyclerViewAdapter(List<String> myDataSet) {
+    public PriseRecyclerViewAdapter(List<String> myDataSet, List<String> myTimeSet) {
         dataSet = myDataSet;
+        timeSet = myTimeSet;
     }
 
     @Override
@@ -36,8 +40,10 @@ public class PriseRecyclerViewAdapter extends RecyclerView.Adapter<PriseRecycler
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        String text = dataSet.get(position);
-        holder.textView.setText(text);
+        String detailText = dataSet.get(position);
+        String timeText = timeSet.get(position);
+        holder.detailTextView.setText(detailText);
+        holder.timeTextView.setText(timeText);
     }
 
     @Override

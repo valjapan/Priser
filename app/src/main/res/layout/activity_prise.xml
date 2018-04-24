@@ -100,12 +100,12 @@
                     app:bl_strokeWidth="1dp">
 
                     <TextView
+                        android:id="@+id/cpu_text_view"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:id="@+id/cpu_text_view"
                         android:layout_gravity="center"
                         android:layout_margin="8dp"
-                        android:text="今日もお疲れ様！３００分もやったの！？すごーい！！"
+                        android:text="今日も頑張ってね！"
                         android:textColor="@color/colorAccent"
                         android:textSize="25sp" />
 

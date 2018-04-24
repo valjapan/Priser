@@ -82,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
             timerButton.setText("スタート");
 
 
-            Log.d("data", "dataString is " + dateString);
+            Log.d("main_activity", "dataString is " + dateString);
 
             goPrise();
 
@@ -103,11 +103,12 @@ public class MainActivity extends AppCompatActivity {
     public void goPrise() {
         Intent intent = new Intent(getApplicationContext(), PriseActivity.class);
 
-        intent.putExtra("result_time",dateString);
+        if (dateString != null) {
+            intent.putExtra("result_time", dateString);
+        }
 
         startActivity(intent);
     }
-
 
 
 }
