@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
         setTitle("Main Activity");
 
         timerTextView = (TextView) findViewById(R.id.timer_text_view);
-        timerTextView.setTextColor(getColor(R.color.grey_black_1000));
+        timerTextView.setTextColor(getResources().getColor(R.color.grey_black_1000));
 
         count = 0;
         period = 100;

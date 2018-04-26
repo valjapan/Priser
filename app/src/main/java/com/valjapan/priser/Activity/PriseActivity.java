@@ -22,7 +22,8 @@ public class PriseActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private PriseRecyclerViewAdapter priseRecyclerViewAdapter;
-    private ArrayList<String> detailList, timeList;
+    private ArrayList<String> detailList;
+
     private String timeResult;
     private TextView cpuTextView;
 
@@ -59,7 +60,6 @@ public class PriseActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(linearLayoutManager);
 
         detailList = new ArrayList<>();
-        timeList = new ArrayList<>();
 
 
         Intent intent = getIntent();
@@ -85,7 +85,7 @@ public class PriseActivity extends AppCompatActivity {
 
         if (timeResult != null) {
             detailList.add(timeResult + "分間運動した！");
-            timeList.add((month + 1) + "/" + day + "/" + " " + hour + ":" + minute);
+//            timeList.add((month + 1) + "/" + day + "/" + " " + hour + ":" + minute);
 
         }
 

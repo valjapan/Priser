@@ -39,7 +39,6 @@
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_below="@id/detail_name"
                             android:orientation="horizontal">
 
                             <com.daasuu.bl.BubbleLayout
@@ -75,8 +74,6 @@
                             android:id="@+id/detail_time"
                             android:layout_width="40dp"
                             android:layout_height="wrap_content"
-                            android:layout_alignStart="@+id/detail_name"
-                            android:layout_below="@+id/detail_name"
                             android:layout_gravity="bottom|right"
                             android:text="Time:"
                             android:textColor="@color/colorPrimary"

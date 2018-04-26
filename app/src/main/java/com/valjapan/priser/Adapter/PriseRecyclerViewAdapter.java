@@ -10,41 +10,42 @@ import com.valjapan.priser.R;
 
 import java.util.List;
 
-public class PriseRecyclerViewAdapter extends RecyclerView.Adapter<PriseRecyclerViewAdapter.ViewHolder> {
+public class PriseRecyclerViewAdapter extends RecyclerView.Adapter<PriseRecyclerViewAdapter.detailViewHolder> {
 
-    protected List<String> dataSet,timeSet;
+    protected List<String> dataSet, timeSet;
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView detailTextView;
-        TextView timeTextView;
+    public static class detailViewHolder extends RecyclerView.ViewHolder {
+        public final TextView detailTextView;
+//        public final TextView timeTextView;
 
-        public ViewHolder(View v) {
+        public detailViewHolder(View v) {
             super(v);
             detailTextView = (TextView) v.findViewById(R.id.detail_details);
-            timeTextView = (TextView) v.findViewById(R.id.detail_time);
+//            timeTextView = (TextView) v.findViewById(R.id.detail_time);
 
         }
     }
 
     public PriseRecyclerViewAdapter(List<String> myDataSet, List<String> myTimeSet) {
         dataSet = myDataSet;
-        timeSet = myTimeSet;
+//        timeSet = myTimeSet;
     }
 
     @Override
-    public PriseRecyclerViewAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public detailViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_prise, parent, false);
-        ViewHolder vh = new ViewHolder(v);
+        detailViewHolder vh = new detailViewHolder(v);
         return vh;
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(detailViewHolder holder, int position) {
         String detailText = dataSet.get(position);
-        String timeText = timeSet.get(position);
+//        String timeText = timeSet.get(position);
         holder.detailTextView.setText(detailText);
-        holder.timeTextView.setText(timeText);
+//        holder.timeTextView.setText(timeText);
     }
+
 
     @Override
     public int getItemCount() {
