@@ -4,133 +4,118 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
 import com.valjapan.priser.R;
 
-import java.text.SimpleDateFormat;
-import java.util.Locale;
-
-import io.realm.Realm;
-
-public class MainActivity extends AppCompatActivity {
-
+public class MainActivity extends AppCompatActivity implements Runnable, View.OnClickListener {
+    private long startTime, endTime;
     private TextView timerTextView;
-
-    private Handler handler = new Handler();
-
-    private int count, period;
-
-    private SimpleDateFormat dataFormat = new SimpleDateFormat("mm:ss", Locale.JAPAN);
-
-    private Boolean checkTimerTask = false;
-
-    private Button timerButton;
-
-    private String dateString = null;
-
-    public Realm realm;
-
-    private String startMotion, stopMotion;
-
-
-    private Runnable runnable = new Runnable() {
-        @Override
-        public void run() {
-            count++;
-            timerTextView.setText(dataFormat.format(count * period));
-            handler.postDelayed(this, period);
-        }
-    };
-
+    private final Handler handler = new Handler();
+    private volatile boolean stopRun = false;
+    private Button startButton, stopButton;
+    private Boolean startOrFinish = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        realm = Realm.getDefaultInstance();
-
-
-        final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-        setTitle("Main Activity");
-
         timerTextView = (TextView) findViewById(R.id.timer_text_view);
-        timerTextView.setTextColor(getResources().getColor(R.color.grey_black_1000));
 
-        count = 0;
-        period = 100;
-        timerTextView.setText(dataFormat.format(0));
+        startButton = new Button(this);
+        startButton = findViewById(R.id.timer_start_button);
+        startButton.setOnClickListener(this);
 
-        timerButton = (Button) findViewById(R.id.timer_button);
-        timerButton.setText("スタート");
+        stopButton = new Button(this);
+
+        stopButton = findViewById(R.id.timer_stop_button);
+        stopButton.setOnClickListener(this);
+
+
+        long hh = 00; // 時
+        long mm = 00 / 1000 / 60; // 分
+        long ss = 00 / 1000 % 60; // 秒
+        String time = String.format("%1$02d:%2$02d:%3$02d", hh, mm, ss);
+
+        timerTextView.setText(time);
 
 
     }
 
+    @Override
+    public void onClick(View v) {
+        Thread thread;
+        if (v.getId() == R.id.timer_start_button) {
+            stopRun = false;
+            thread = new Thread(this);
+            thread.start();
 
-    public void next(View v) {
-        if (checkTimerTask) {
-            checkTimerTask = false;
+            startTime = System.currentTimeMillis();
+            startButton.setVisibility(View.GONE);
+            stopButton.setVisibility(View.VISIBLE);
 
-            SimpleDateFormat sdf = new SimpleDateFormat("mm", Locale.JAPAN);
-            dateString = sdf.format(count * period);
-            int stringToValue = Integer.parseInt(dateString);
-            dateString = String.valueOf(stringToValue);
-
-            handler.removeCallbacks(runnable);
-            count = 0;
-            period = 100;
-            timerTextView.setText(dataFormat.format(0));
-            timerButton.setText("スタート");
+            Intent intent = new Intent(getApplicationContext(), CharaTalkActivity.class);
+            intent.putExtra("check_time", startOrFinish);
+            startOrFinish = false;
+            startActivity(intent);
 
 
-            Log.d("main_activity", "dataString is " + dateString);
+        } else if (v.getId() == R.id.timer_stop_button) {
 
-            goPrise();
+            stopRun = true;
+            long hh = 00; // 時
+            long mm = 00 / 1000 / 60; // 分
+            long ss = 00 / 1000 % 60; // 秒
+            String time = String.format("%1$02d:%2$02d:%3$02d", hh, mm, ss);
 
-            count = 0;
-        } else {
+            timerTextView.setText(time);
+            startButton.setVisibility(View.VISIBLE);
+            stopButton.setVisibility(View.GONE);
 
-            checkTimerTask = true;
-            timerButton.setText("ストップ");
-            handler.post(runnable);
-            dateString = null;
-
-            goPrise();
+            Intent intent = new Intent(getApplicationContext(), CharaTalkActivity.class);
+            intent.putExtra("check_time", startOrFinish);
+            startOrFinish = true;
+            startActivity(intent);
         }
-
-
     }
 
-    public void goPrise() {
-        Intent intent = new Intent(getApplicationContext(), PriseActivity.class);
 
-        if (dateString != null) {
-            intent.putExtra("result_time", dateString);
+    @Override
+    public void run() {
+        int period = 10;
+
+        while (!stopRun) {
+            try {
+                Thread.sleep(period);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+                stopRun = true;
+            }
+
+            handler.post(new Runnable() {
+                @Override
+                public void run() {
+                    endTime = System.currentTimeMillis();
+                    // カウント時間 = 経過時間 - 開始時間
+
+                    long diffTime = (endTime - startTime);
+
+
+                    long hh = (diffTime / (1000 * 60 * 60)) % 24; // 時
+                    long mm = (diffTime / (1000 * 60)) % 60; // 分
+                    long ss = (diffTime / 1000) % 60; // 秒
+                    String time = String.format("%1$02d:%2$02d:%3$02d", hh, mm, ss);
+
+                    timerTextView.setText(time);
+
+
+                }
+            });
         }
-
-        startActivity(intent);
     }
-
-//    public void save(final String startTime, final String stopTime) {
-//        realm.executeTransaction(new Realm.Transaction() {
-//            @Override
-//            public void excute(Realm bgRealm) {
-//                MotionTime motionTime = realm.createObject(MotionTime.class);
-//                motionTime.startTime =;
-//
-//            }
-//
-//        });
-//
-//    }
 
 
 }

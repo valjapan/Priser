@@ -22,7 +22,7 @@ public class PriseRecyclerViewAdapter extends RecyclerView.Adapter<PriseRecycler
 
     @Override
     public PriseRecyclerViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View inflate = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_prise, parent,false);
+        View inflate = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_self_detail, parent,false);
         PriseRecyclerViewHolder vh = new PriseRecyclerViewHolder(inflate);
         return vh;
     }

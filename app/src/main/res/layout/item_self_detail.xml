@@ -52,10 +52,10 @@
                                 app:bl_strokeWidth="1dp">
 
                                 <TextView
-                                    android:id="@+id/detail_details"
+                                    android:id="@+id/detail_self_details_text_view"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_below="@+id/detail_time"
+                                    android:layout_below="@+id/detail_self_time"
                                     android:layout_marginLeft="6dp"
                                     android:layout_marginRight="6dp"
                                     android:layout_weight="1"
@@ -70,10 +70,10 @@
                         </LinearLayout>
 
                         <TextView
-                            android:id="@+id/detail_time"
+                            android:id="@+id/detail_self_time"
                             android:layout_width="40dp"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="bottom|right"
+                            android:layout_gravity="bottom|left"
                             android:text="Time:"
                             android:textColor="@color/colorPrimary"
                             android:textSize="12sp" />
