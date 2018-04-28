@@ -5,7 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.valjapan.priser.Data.DetailData;
+import com.valjapan.priser.Data.Message;
 import com.valjapan.priser.Holder.PriseRecyclerViewHolder;
 import com.valjapan.priser.R;
 
@@ -14,9 +14,9 @@ import java.util.List;
 public class PriseRecyclerViewAdapter extends RecyclerView.Adapter<PriseRecyclerViewHolder> {
 
 
-    private List<DetailData> list;
+    private List<Message> list;
 
-    public PriseRecyclerViewAdapter(List<DetailData> list) {
+    public PriseRecyclerViewAdapter(List<Message> list) {
         this.list = list;
     }
 

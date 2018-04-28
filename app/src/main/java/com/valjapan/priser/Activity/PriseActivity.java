@@ -12,7 +12,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.valjapan.priser.Adapter.PriseRecyclerViewAdapter;
-import com.valjapan.priser.Data.DetailData;
+import com.valjapan.priser.Data.Message;
 import com.valjapan.priser.R;
 
 import java.util.ArrayList;
@@ -29,8 +29,8 @@ public class PriseActivity extends AppCompatActivity {
     private String timeResult, nowTime;
     private TextView cpuTextView;
 
-    private DetailData data = new DetailData();
-    private List<DetailData> dataSet = new ArrayList<>();
+    private Message data = new Message();
+    private List<Message> dataSet = new ArrayList<>();
 
 
     final Calendar calendar = Calendar.getInstance();
@@ -83,7 +83,7 @@ public class PriseActivity extends AppCompatActivity {
 
     }
 
-    private List<DetailData> createDataset() {
+    private List<Message> createDataset() {
 
         if (timeResult != null) {
             resultChange();
@@ -102,7 +102,7 @@ public class PriseActivity extends AppCompatActivity {
     }
 
 
-    private List<DetailData> addDataset() {
+    private List<Message> addDataset() {
         getTime();
         data.setTime(nowTime);
         data.setDetail(timeResult);
