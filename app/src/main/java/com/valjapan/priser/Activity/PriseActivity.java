@@ -20,6 +20,12 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 
+import io.realm.DynamicRealm;
+import io.realm.Realm;
+import io.realm.RealmConfiguration;
+import io.realm.RealmMigration;
+import io.realm.RealmObjectSchema;
+
 public class PriseActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
@@ -44,6 +50,7 @@ public class PriseActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_prise);
+        Realm.setDefaultConfiguration(new RealmConfiguration.Builder(this).build());
 
 
         final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -122,6 +129,7 @@ public class PriseActivity extends AppCompatActivity {
     }
 
 
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -138,6 +146,23 @@ public class PriseActivity extends AppCompatActivity {
 
         cpuTextView.setText("今日もお疲れ様！ " + timeResult + "分もやったの！？すごーい！！ ");
 
+    }
+
+    private RealmConfiguration buildRealmConfigration() {
+        return new RealmConfiguration.Builder(this)
+                .schemaVersion(1L)
+                .migration(new RealmMigration() {
+                    @Override
+                    public void migrate(DynamicRealm dynamicRealm, long oldVersion, long newVersion) {
+                        if (oldVersion == 0L) {
+                            final RealmObjectSchema detailSchema = dynamicRealm.getSchema().get("DetailData");
+                            detailSchema.addField("detail", boolean.class);
+                            detailSchema.addField("time", boolean.class);
+                            oldVersion++;
+                        }
+                    }
+                })
+                .build();
     }
 
 }

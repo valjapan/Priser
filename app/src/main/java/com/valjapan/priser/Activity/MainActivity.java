@@ -15,6 +15,8 @@ import com.valjapan.priser.R;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
 
+import io.realm.Realm;
+
 public class MainActivity extends AppCompatActivity {
 
     private TextView timerTextView;
@@ -31,6 +33,10 @@ public class MainActivity extends AppCompatActivity {
 
     private String dateString = null;
 
+    public Realm realm;
+
+    private String startMotion, stopMotion;
+
 
     private Runnable runnable = new Runnable() {
         @Override
@@ -46,6 +52,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        realm = Realm.getDefaultInstance();
+
 
         final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -109,6 +118,19 @@ public class MainActivity extends AppCompatActivity {
 
         startActivity(intent);
     }
+
+//    public void save(final String startTime, final String stopTime) {
+//        realm.executeTransaction(new Realm.Transaction() {
+//            @Override
+//            public void excute(Realm bgRealm) {
+//                MotionTime motionTime = realm.createObject(MotionTime.class);
+//                motionTime.startTime =;
+//
+//            }
+//
+//        });
+//
+//    }
 
 
 }
