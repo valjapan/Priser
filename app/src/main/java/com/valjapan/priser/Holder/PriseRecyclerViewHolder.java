@@ -12,8 +12,8 @@ public class PriseRecyclerViewHolder extends RecyclerView.ViewHolder {
 
     public PriseRecyclerViewHolder(View itemView) {
         super(itemView);
-        detailTextView = (TextView) itemView.findViewById(R.id.detail_details);
-        timeTextView = (TextView) itemView.findViewById(R.id.detail_time);
+        detailTextView = (TextView) itemView.findViewById(R.id.detail_self_details_text_view);
+        timeTextView = (TextView) itemView.findViewById(R.id.detail_self_time);
 
     }
 }
