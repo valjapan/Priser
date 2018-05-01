@@ -16,7 +16,7 @@ public class CharaTalkActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_chara_talk);
+        setContentView(R.layout.activity_chara_talk_a);
         cpuTextView = findViewById(R.id.cpu_text_view);
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();

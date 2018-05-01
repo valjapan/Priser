@@ -1,6 +1,8 @@
 package com.valjapan.priser.Activity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
@@ -10,6 +12,8 @@ import android.widget.TextView;
 
 import com.valjapan.priser.R;
 
+import io.realm.Realm;
+
 public class MainActivity extends AppCompatActivity implements Runnable, View.OnClickListener {
     private long startTime, endTime;
     private TextView timerTextView;
@@ -17,11 +21,15 @@ public class MainActivity extends AppCompatActivity implements Runnable, View.On
     private volatile boolean stopRun = false;
     private Button startButton, stopButton;
     private Boolean startOrFinish = true;
+    private int numberLog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Realm.init(this);
+
 
         timerTextView = (TextView) findViewById(R.id.timer_text_view);
 
@@ -45,6 +53,17 @@ public class MainActivity extends AppCompatActivity implements Runnable, View.On
 
     }
 
+    public void saveRealm(){
+
+
+        Realm realm = Realm.getDefaultInstance();
+
+
+
+
+    }
+
+
     @Override
     public void onClick(View v) {
         Thread thread;
@@ -62,8 +81,14 @@ public class MainActivity extends AppCompatActivity implements Runnable, View.On
             startOrFinish = false;
             startActivity(intent);
 
-
         } else if (v.getId() == R.id.timer_stop_button) {
+
+            SharedPreferences dataLog = getSharedPreferences("TimerLog", Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = dataLog.edit();
+            editor.putInt("StopLog",numberLog);
+            editor.apply();
+            numberLog ++;
+
 
             stopRun = true;
             long hh = 00; // 時
