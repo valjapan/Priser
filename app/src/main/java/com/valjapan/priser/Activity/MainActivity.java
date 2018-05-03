@@ -70,6 +70,8 @@ public class MainActivity extends AppCompatActivity implements Runnable, View.On
 
         } else if (v.getId() == R.id.timer_stop_button) {
 
+            saveTime(startTime, endTime);
+
             stopRun = true;
             long hh = 00; // 時
             long mm = 00 / 1000 / 60; // 分
@@ -79,7 +81,6 @@ public class MainActivity extends AppCompatActivity implements Runnable, View.On
             timerTextView.setText(time);
             startButton.setVisibility(View.VISIBLE);
             stopButton.setVisibility(View.GONE);
-            saveTime(startTime, endTime);
 
             Intent intent = new Intent(getApplicationContext(), CharaTalkActivity.class);
             intent.putExtra("check_time", startOrFinish);
@@ -134,7 +135,8 @@ public class MainActivity extends AppCompatActivity implements Runnable, View.On
         motionTime.startTime = startTime;
         motionTime.stopTime = startTime;
 
-        realm.beginTransaction();
+
+//        realm.beginTransaction();
         realm.copyToRealm(motionTime);
         realm.commitTransaction();
 
