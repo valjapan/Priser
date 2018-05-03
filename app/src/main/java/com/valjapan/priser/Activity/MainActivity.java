@@ -1,15 +1,15 @@
 package com.valjapan.priser.Activity;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.valjapan.priser.Data.MotionTime;
 import com.valjapan.priser.R;
 
 import io.realm.Realm;
@@ -22,17 +22,15 @@ public class MainActivity extends AppCompatActivity implements Runnable, View.On
     private Button startButton, stopButton;
     private Boolean startOrFinish = true;
     private int numberLog;
+    public Realm realm;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Realm.init(this);
-
-
         timerTextView = (TextView) findViewById(R.id.timer_text_view);
-
         startButton = new Button(this);
         startButton = findViewById(R.id.timer_start_button);
         startButton.setOnClickListener(this);
@@ -53,17 +51,6 @@ public class MainActivity extends AppCompatActivity implements Runnable, View.On
 
     }
 
-    public void saveRealm(){
-
-
-        Realm realm = Realm.getDefaultInstance();
-
-
-
-
-    }
-
-
     @Override
     public void onClick(View v) {
         Thread thread;
@@ -83,13 +70,6 @@ public class MainActivity extends AppCompatActivity implements Runnable, View.On
 
         } else if (v.getId() == R.id.timer_stop_button) {
 
-            SharedPreferences dataLog = getSharedPreferences("TimerLog", Context.MODE_PRIVATE);
-            SharedPreferences.Editor editor = dataLog.edit();
-            editor.putInt("StopLog",numberLog);
-            editor.apply();
-            numberLog ++;
-
-
             stopRun = true;
             long hh = 00; // 時
             long mm = 00 / 1000 / 60; // 分
@@ -99,11 +79,13 @@ public class MainActivity extends AppCompatActivity implements Runnable, View.On
             timerTextView.setText(time);
             startButton.setVisibility(View.VISIBLE);
             stopButton.setVisibility(View.GONE);
+            saveTime(startTime, endTime);
 
             Intent intent = new Intent(getApplicationContext(), CharaTalkActivity.class);
             intent.putExtra("check_time", startOrFinish);
             startOrFinish = true;
             startActivity(intent);
+
         }
     }
 
@@ -134,6 +116,9 @@ public class MainActivity extends AppCompatActivity implements Runnable, View.On
                     long ss = (diffTime / 1000) % 60; // 秒
                     String time = String.format("%1$02d:%2$02d:%3$02d", hh, mm, ss);
 
+                    Log.d("Time", time);
+
+
                     timerTextView.setText(time);
 
 
@@ -142,5 +127,23 @@ public class MainActivity extends AppCompatActivity implements Runnable, View.On
         }
     }
 
+
+    public void saveTime(final Long startTime, final Long endTime) {
+
+        MotionTime motionTime = new MotionTime();
+        motionTime.startTime = startTime;
+        motionTime.stopTime = startTime;
+
+        realm.beginTransaction();
+        realm.copyToRealm(motionTime);
+        realm.commitTransaction();
+
+    }
+
+    protected void onDestroy() {
+        super.onDestroy();
+
+        realm.close();
+    }
 
 }

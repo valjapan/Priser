@@ -12,7 +12,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.valjapan.priser.Adapter.PriseRecyclerViewAdapter;
-import com.valjapan.priser.Data.Message;
+import com.valjapan.priser.Data.UserMessage;
 import com.valjapan.priser.R;
 
 import java.util.ArrayList;
@@ -20,17 +20,20 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 
+import io.realm.Realm;
+
 public class PriseActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private PriseRecyclerViewAdapter priseRecyclerViewAdapter;
     private ArrayList<String> detailList;
+    public Realm realm;
 
     private String timeResult, nowTime;
     private TextView cpuTextView;
 
-    private Message data = new Message();
-    private List<Message> dataSet = new ArrayList<>();
+    private UserMessage data = new UserMessage();
+    private List<UserMessage> dataSet = new ArrayList<>();
 
 
     final Calendar calendar = Calendar.getInstance();
@@ -44,6 +47,9 @@ public class PriseActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_prise);
+        realm = Realm.getDefaultInstance();
+
+
 //        Realm.setDefaultConfiguration(new RealmConfiguration.Builder(this).build());
 
 
@@ -61,11 +67,11 @@ public class PriseActivity extends AppCompatActivity {
 
         recyclerView = (RecyclerView) findViewById(R.id.priseRecyclerView);
         cpuTextView = (TextView) findViewById(R.id.cpu_text_view);
-        priseRecyclerViewAdapter = new PriseRecyclerViewAdapter(this.createDataset());
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(linearLayoutManager);
+
 
         recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(priseRecyclerViewAdapter);
 
 
@@ -83,15 +89,14 @@ public class PriseActivity extends AppCompatActivity {
 
     }
 
-    private List<Message> createDataset() {
+    private List<UserMessage> createDataset() {
 
         if (timeResult != null) {
             resultChange();
         } else {
 
             getTime();
-            data.setTime(nowTime);
-            data.setDetail("これから運動を始めるよ！");
+
             dataSet.add(data);
 
             Log.d("do createDataSet", "動作を確認");
@@ -102,10 +107,10 @@ public class PriseActivity extends AppCompatActivity {
     }
 
 
-    private List<Message> addDataset() {
+    private List<UserMessage> addDataset() {
         getTime();
-        data.setTime(nowTime);
-        data.setDetail(timeResult);
+//        data.setTime(nowTime);
+//        data.setDetail(timeResult);
         dataSet.add(data);
 
         Log.d("do addDataSet", "動作を確認");
@@ -138,25 +143,26 @@ public class PriseActivity extends AppCompatActivity {
         addDataset();
 
 
+
         cpuTextView.setText("今日もお疲れ様！ " + timeResult + "分もやったの！？すごーい！！ ");
 
     }
 
-//    private RealmConfiguration buildRealmConfigration() {
-//        return new RealmConfiguration.Builder(this)
-//                .schemaVersion(1L)
-//                .migration(new RealmMigration() {
-//                    @Override
-////                    public void migrate(DynamicRealm dynamicRealm, long oldVersion, long newVersion) {
-////                        if (oldVersion == 0L) {
-////                            final RealmObjectSchema detailSchema = dynamicRealm.getSchema().get("DetailData");
-////                            detailSchema.addField("detail", boolean.class);
-////                            detailSchema.addField("time", boolean.class);
-////                            oldVersion++;
-////                        }
-////                    }
-////                })
-////                .build();
+
+//    public void setRecyclerView(){
+//        RealmResults<MotionTime> results = realm.where(MotionTime.class).findAll();
+//        List<MotionTime> items = realm.copyToRealm(results);
+//
+//        PriseRecyclerViewAdapter adapter = new PriseRecyclerViewAdapter();
+//
+//        recyclerView.setAdapter(adapter);
+//    }
+//
+//    @Override
+//    protected void onResume(){
+//        super.onResume();
+//
+//        setRecyclerView();
 //    }
 
 }
