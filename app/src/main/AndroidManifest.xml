@@ -21,8 +21,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Activity.PriseActivity"></activity>
-        <activity android:name=".Activity.CharaTalkActivity"></activity>
+        <activity android:name=".Activity.PriseActivity" />
+        <activity android:name=".Activity.CharaTalkAActivity" />
+        <activity android:name=".Activity.CharaTalkBActivity"></activity>
     </application>
 
 </manifest>

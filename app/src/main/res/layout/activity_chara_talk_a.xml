@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activity.CharaTalkActivity">
+    tools:context=".Activity.CharaTalkAActivity">
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -20,7 +20,7 @@
 
 
             <ImageView
-                android:id="@+id/cpu_image"
+                android:id="@+id/cpu_image_a"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_marginTop="150dp"

@@ -4,13 +4,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
 import com.valjapan.priser.Data.MotionTime;
 import com.valjapan.priser.R;
+
+import java.util.Random;
 
 import io.realm.Realm;
 
@@ -22,6 +23,8 @@ public class MainActivity extends AppCompatActivity implements Runnable, View.On
     private Button startButton, stopButton;
     private Boolean startOrFinish = true;
     private int numberLog;
+    private Random random = new Random();
+
     public Realm realm;
 
 
@@ -29,6 +32,8 @@ public class MainActivity extends AppCompatActivity implements Runnable, View.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        realm = Realm.getDefaultInstance();
 
         timerTextView = (TextView) findViewById(R.id.timer_text_view);
         startButton = new Button(this);
@@ -63,10 +68,7 @@ public class MainActivity extends AppCompatActivity implements Runnable, View.On
             startButton.setVisibility(View.GONE);
             stopButton.setVisibility(View.VISIBLE);
 
-            Intent intent = new Intent(getApplicationContext(), CharaTalkActivity.class);
-            intent.putExtra("check_time", startOrFinish);
-            startOrFinish = false;
-            startActivity(intent);
+            goStartIntent();
 
         } else if (v.getId() == R.id.timer_stop_button) {
 
@@ -82,10 +84,8 @@ public class MainActivity extends AppCompatActivity implements Runnable, View.On
             startButton.setVisibility(View.VISIBLE);
             stopButton.setVisibility(View.GONE);
 
-            Intent intent = new Intent(getApplicationContext(), CharaTalkActivity.class);
-            intent.putExtra("check_time", startOrFinish);
-            startOrFinish = true;
-            startActivity(intent);
+
+            goFinishIntent();
 
         }
     }
@@ -117,7 +117,7 @@ public class MainActivity extends AppCompatActivity implements Runnable, View.On
                     long ss = (diffTime / 1000) % 60; // 秒
                     String time = String.format("%1$02d:%2$02d:%3$02d", hh, mm, ss);
 
-                    Log.d("Time", time);
+//                    Log.d("Time", time);
 
 
                     timerTextView.setText(time);
@@ -128,15 +128,67 @@ public class MainActivity extends AppCompatActivity implements Runnable, View.On
         }
     }
 
+    public void goStartIntent() {
+
+        int i = random.nextInt(2);
+
+        Intent intent;
+
+        if (i == 0) {
+
+            intent = new Intent(getApplicationContext(), CharaTalkAActivity.class);
+            intent.putExtra("check_time", startOrFinish);
+            startOrFinish = false;
+            startActivity(intent);
+
+        }
+
+        if (i == 1) {
+
+            intent = new Intent(getApplicationContext(), CharaTalkBActivity.class);
+            intent.putExtra("check_time", startOrFinish);
+            startOrFinish = false;
+            startActivity(intent);
+
+        }
+
+
+    }
+
+    public void goFinishIntent() {
+
+        Random random = new Random();
+        int i = random.nextInt(2);
+        Intent intent;
+
+        if (i == 0) {
+
+            intent = new Intent(getApplicationContext(), CharaTalkAActivity.class);
+            intent.putExtra("check_time", startOrFinish);
+            startOrFinish = true;
+            startActivity(intent);
+
+        }
+
+        if (i == 1) {
+
+            intent = new Intent(getApplicationContext(), CharaTalkBActivity.class);
+            intent.putExtra("check_time", startOrFinish);
+            startOrFinish = true;
+            startActivity(intent);
+
+        }
+    }
+
 
     public void saveTime(final Long startTime, final Long endTime) {
 
         MotionTime motionTime = new MotionTime();
         motionTime.startTime = startTime;
-        motionTime.stopTime = startTime;
+        motionTime.stopTime = endTime;
 
 
-//        realm.beginTransaction();
+        realm.beginTransaction();
         realm.copyToRealm(motionTime);
         realm.commitTransaction();
 
@@ -147,5 +199,6 @@ public class MainActivity extends AppCompatActivity implements Runnable, View.On
 
         realm.close();
     }
+
 
 }
