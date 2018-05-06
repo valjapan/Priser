@@ -35,7 +35,6 @@ public class PriseActivity extends AppCompatActivity {
     private UserMessage data = new UserMessage();
     private List<UserMessage> dataSet = new ArrayList<>();
 
-
     final Calendar calendar = Calendar.getInstance();
     int month = calendar.get(Calendar.MONTH);
     final int day = calendar.get(Calendar.DAY_OF_MONTH);
@@ -53,7 +52,7 @@ public class PriseActivity extends AppCompatActivity {
 //        Realm.setDefaultConfiguration(new RealmConfiguration.Builder(this).build());
 
 
-        final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_prise);
         setSupportActionBar(toolbar);
 
         setTitle("Prise Activity");

@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -24,6 +26,7 @@ public class MainActivity extends AppCompatActivity implements Runnable, View.On
     private Boolean startOrFinish = true;
     private int numberLog;
     private Random random = new Random();
+    private android.support.v7.widget.Toolbar toolbar;
 
     public Realm realm;
 
@@ -32,6 +35,12 @@ public class MainActivity extends AppCompatActivity implements Runnable, View.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        toolbar = findViewById(R.id.toolbar_main);
+        setSupportActionBar(toolbar);
+
+        setTitle("Main Activity");
+
 
         realm = Realm.getDefaultInstance();
 
@@ -54,6 +63,34 @@ public class MainActivity extends AppCompatActivity implements Runnable, View.On
         timerTextView.setText(time);
 
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.menu_go_prise) {
+            Intent intent = new Intent(this, PriseActivity.class);
+            startActivity(intent);
+            return true;
+        }
+
+        if (id == R.id.menu_go_graph) {
+            Intent intent = new Intent(this, GraphActivity.class);
+            startActivity(intent);
+            return true;
+
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     @Override

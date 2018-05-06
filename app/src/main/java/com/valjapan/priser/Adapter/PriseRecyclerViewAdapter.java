@@ -1,9 +1,12 @@
 package com.valjapan.priser.Adapter;
 
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import com.valjapan.priser.R;
 
 public class PriseRecyclerViewAdapter extends RecyclerView.Adapter<PriseRecyclerViewAdapter.ViewHolder> {
 
@@ -13,16 +16,25 @@ public class PriseRecyclerViewAdapter extends RecyclerView.Adapter<PriseRecycler
         }
     }
 
+
+
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         // view type に応じて生成する view を変える。
         // 今回はサンプルコードなので手軽に両方とも TextView にしている。
         // 実際にはここで生成する View を違うものにする。
-        View v;
-        if (viewType == 0) {
-            v = new TextView(parent.getContext());
-        } else {
-            v = new TextView(parent.getContext());
+        View v = null;
+        if(viewType == 0){
+            v = LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.item_self_detail,
+                            parent,
+                            false);
+        }
+        else {
+            v = LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.item_chara_detail,
+                            parent,
+                            false);
         }
         return new ViewHolder(v);
     }

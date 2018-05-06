@@ -56,19 +56,19 @@ public class CharaTalkAActivity extends AppCompatActivity {
 
     public void randomStartImage() {
         switch (numberA) {
-            case 1:
+            case 0:
                 cpuImageView.setImageResource(R.drawable.img_a_01);
                 break;
-            case 2:
+            case 1:
                 cpuImageView.setImageResource(R.drawable.img_a_02);
                 break;
-            case 3:
+            case 2:
                 cpuImageView.setImageResource(R.drawable.img_a_03);
                 break;
-            case 4:
+            case 3:
                 cpuImageView.setImageResource(R.drawable.img_a_04);
                 break;
-            case 5:
+            case 4:
                 cpuImageView.setImageResource(R.drawable.img_a_05);
                 break;
         }
@@ -77,19 +77,19 @@ public class CharaTalkAActivity extends AppCompatActivity {
     public void randomEndImage() {
 
         switch (numberA) {
-            case 1:
+            case 0:
                 cpuImageView.setImageResource(R.drawable.img_a_01);
                 break;
-            case 2:
+            case 1:
                 cpuImageView.setImageResource(R.drawable.img_a_02);
                 break;
-            case 3:
+            case 2:
                 cpuImageView.setImageResource(R.drawable.img_a_03);
                 break;
-            case 4:
+            case 3:
                 cpuImageView.setImageResource(R.drawable.img_a_04);
                 break;
-            case 5:
+            case 4:
                 cpuImageView.setImageResource(R.drawable.img_a_05);
                 break;
         }
