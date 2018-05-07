@@ -12,8 +12,9 @@ public class CpuPriseRecyclerViewHolder extends RecyclerView.ViewHolder {
 
     public CpuPriseRecyclerViewHolder(View itemView) {
         super(itemView);
-        detailTextView = (TextView) itemView.findViewById(R.id.detail_self_details_text_view);
-        timeTextView = (TextView) itemView.findViewById(R.id.detail_self_time);
+        detailTextView = (TextView) itemView.findViewById(R.id.detail_chara_details_text_view);
+        timeTextView = (TextView) itemView.findViewById(R.id.detail_chara_time);
+
 
     }
 }

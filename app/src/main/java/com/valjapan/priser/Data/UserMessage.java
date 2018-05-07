@@ -2,7 +2,7 @@ package com.valjapan.priser.Data;
 
 import io.realm.RealmObject;
 
-public class UserMessage extends RealmObject{
+public class UserMessage extends RealmObject {
     private String time;
     private String detail;
 

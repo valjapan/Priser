@@ -9,9 +9,9 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.TextView;
 
 import com.valjapan.priser.Adapter.PriseRecyclerViewAdapter;
+import com.valjapan.priser.Data.CpuMessage;
 import com.valjapan.priser.Data.UserMessage;
 import com.valjapan.priser.R;
 
@@ -26,14 +26,13 @@ public class PriseActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private PriseRecyclerViewAdapter priseRecyclerViewAdapter;
-    private ArrayList<String> detailList;
     public Realm realm;
 
     private String timeResult, nowTime;
-    private TextView cpuTextView;
 
-    private UserMessage data = new UserMessage();
-    private List<UserMessage> dataSet = new ArrayList<>();
+    private UserMessage userData = new UserMessage();
+    private CpuMessage cpuData = new CpuMessage();
+    private List<Object> dataSet = new ArrayList<>();
 
     final Calendar calendar = Calendar.getInstance();
     int month = calendar.get(Calendar.MONTH);
@@ -49,9 +48,6 @@ public class PriseActivity extends AppCompatActivity {
         realm = Realm.getDefaultInstance();
 
 
-//        Realm.setDefaultConfiguration(new RealmConfiguration.Builder(this).build());
-
-
         final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_prise);
         setSupportActionBar(toolbar);
 
@@ -65,13 +61,16 @@ public class PriseActivity extends AppCompatActivity {
         });
 
         recyclerView = (RecyclerView) findViewById(R.id.priseRecyclerView);
-        cpuTextView = (TextView) findViewById(R.id.cpu_text_view);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(linearLayoutManager);
 
 
         recyclerView.setHasFixedSize(true);
-        recyclerView.setAdapter(priseRecyclerViewAdapter);
+        PriseRecyclerViewAdapter adapter = new PriseRecyclerViewAdapter(this, dataSet);
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        createDataset();
 
 
         Intent intent = getIntent();
@@ -88,7 +87,7 @@ public class PriseActivity extends AppCompatActivity {
 
     }
 
-    private List<UserMessage> createDataset() {
+    private List<Object> createDataset() {
 
         if (timeResult != null) {
             resultChange();
@@ -96,26 +95,30 @@ public class PriseActivity extends AppCompatActivity {
 
             getTime();
 
-            dataSet.add(data);
+            dataSet.add(userData);
+            dataSet.add(cpuData);
 
             Log.d("do createDataSet", "動作を確認");
 
         }
-        return dataSet;
 
+        return dataSet;
     }
 
 
-    private List<UserMessage> addDataset() {
+    private List<Object> addDataset() {
         getTime();
 //        data.setTime(nowTime);
 //        data.setDetail(timeResult);
-        dataSet.add(data);
+        dataSet.add(new UserMessage());
+        dataSet.add(new CpuMessage());
+        dataSet.add(cpuData);
 
         Log.d("do addDataSet", "動作を確認");
 
         return dataSet;
     }
+
 
     private void getTime() {
 
@@ -125,7 +128,6 @@ public class PriseActivity extends AppCompatActivity {
         String.format("%02d", minute, Locale.getDefault());
         nowTime = (month + 1) + "/" + day + " " + hour + ":" + minute;
     }
-
 
 
     @Override
@@ -140,10 +142,6 @@ public class PriseActivity extends AppCompatActivity {
 
     private void resultChange() {
         addDataset();
-
-
-
-        cpuTextView.setText("今日もお疲れ様！ " + timeResult + "分もやったの！？すごーい！！ ");
 
     }
 
