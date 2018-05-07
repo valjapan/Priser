@@ -16,7 +16,7 @@ public class CharaTalkAActivity extends AppCompatActivity {
     private Boolean tOrF;
     private Random randomA = new Random();
     private Random randomC = new Random();
-    private int numberA,numberC;
+    private int numberA, numberC;
     private ImageView cpuImageView;
 
 
@@ -26,7 +26,7 @@ public class CharaTalkAActivity extends AppCompatActivity {
         setContentView(R.layout.activity_chara_talk_a);
         cpuTextView = findViewById(R.id.cpu_text_view);
         cpuImageView = findViewById(R.id.cpu_image_a);
-        numberA = randomA.nextInt(5);
+        numberA = randomA.nextInt(6);
         numberC = randomC.nextInt(6);
 
 
@@ -71,6 +71,9 @@ public class CharaTalkAActivity extends AppCompatActivity {
             case 4:
                 cpuImageView.setImageResource(R.drawable.img_a_05);
                 break;
+            case 5:
+                cpuImageView.setImageResource(R.drawable.img_b_06);
+                break;
         }
     }
 
@@ -91,6 +94,9 @@ public class CharaTalkAActivity extends AppCompatActivity {
                 break;
             case 4:
                 cpuImageView.setImageResource(R.drawable.img_a_05);
+                break;
+            case 5:
+                cpuImageView.setImageResource(R.drawable.img_b_06);
                 break;
         }
 
