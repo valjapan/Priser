@@ -33,7 +33,7 @@ public class CharaTalkBActivity extends AppCompatActivity {
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
         numberB = randomB.nextInt(6);
-        numberC = randomC.nextInt(6);
+        numberC = randomC.nextInt(7);
         tOrF = (Boolean) bundle.get("check_time");
         if (tOrF) {
             randomStartImage();
@@ -91,6 +91,9 @@ public class CharaTalkBActivity extends AppCompatActivity {
                 break;
             case 5:
                 cpuImageView.setImageResource(R.drawable.img_c_06);
+                break;
+            case 6:
+                cpuImageView.setImageResource(R.drawable.img_c_07);
                 break;
         }
 

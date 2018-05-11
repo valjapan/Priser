@@ -1,17 +1,20 @@
 package com.valjapan.priser.Activity;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.valjapan.priser.Adapter.PriseRecyclerViewAdapter;
+import com.github.bassaer.chatmessageview.model.Message;
+import com.github.bassaer.chatmessageview.view.MessageView;
 import com.valjapan.priser.Data.CpuMessage;
+import com.valjapan.priser.Data.MotionTime;
+import com.valjapan.priser.Data.User;
 import com.valjapan.priser.Data.UserMessage;
 import com.valjapan.priser.R;
 
@@ -21,12 +24,13 @@ import java.util.List;
 import java.util.Locale;
 
 import io.realm.Realm;
+import io.realm.RealmResults;
 
 public class PriseActivity extends AppCompatActivity {
 
-    private RecyclerView recyclerView;
-    private PriseRecyclerViewAdapter priseRecyclerViewAdapter;
     public Realm realm;
+    public MessageView messageView;
+
 
     private String timeResult, nowTime;
 
@@ -60,22 +64,18 @@ public class PriseActivity extends AppCompatActivity {
             }
         });
 
-        recyclerView = (RecyclerView) findViewById(R.id.priseRecyclerView);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(linearLayoutManager);
+        messageView = (MessageView) findViewById(R.id.message_view);
 
 
-        recyclerView.setHasFixedSize(true);
-        PriseRecyclerViewAdapter adapter = new PriseRecyclerViewAdapter(this, dataSet);
-        recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        setMessegeview();
 
-        createDataset();
 
 
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
-        if (bundle != null) {
+        if (bundle != null)
+
+        {
             timeResult = (String) bundle.get("result_time");
         }
 
@@ -87,36 +87,52 @@ public class PriseActivity extends AppCompatActivity {
 
     }
 
-    private List<Object> createDataset() {
-
-        if (timeResult != null) {
-            resultChange();
-        } else {
-
-            getTime();
-
-            dataSet.add(userData);
-            dataSet.add(cpuData);
-
-            Log.d("do createDataSet", "動作を確認");
-
-        }
-
-        return dataSet;
-    }
+    public void setMessegeview(){
+        ArrayList<Message> messages = new ArrayList<>();
+        RealmResults<MotionTime> results = realm.where(MotionTime.class).findAll();
 
 
-    private List<Object> addDataset() {
-        getTime();
-//        data.setTime(nowTime);
-//        data.setDetail(timeResult);
-        dataSet.add(new UserMessage());
-        dataSet.add(new CpuMessage());
-        dataSet.add(cpuData);
+        //User id
+        int myId = 0;
+        //User icon
+        Bitmap myIcon = BitmapFactory.decodeResource(getResources(), R.drawable.face_2);
+        //User name
+        String myName = "User";
 
-        Log.d("do addDataSet", "動作を確認");
+        int yourId = 1;
+        Bitmap yourIcon = BitmapFactory.decodeResource(getResources(), R.drawable.img_icon_01);
+        String yourName = "Cpu";
 
-        return dataSet;
+        final User me = new User(myId, myName, myIcon);
+        final User you = new User(yourId, yourName, yourIcon);
+
+        Message message1 = new Message.Builder()
+                .setUser(me)
+                .setText("AB")
+                .setRight(true)
+                .hideIcon(true)
+                .setUsernameVisibility(false)
+                .build();
+
+        Message message2 = new Message.Builder()
+                .setUser(you)
+                .setText("CD")
+                .setUsernameVisibility(false)
+                .setRight(false)
+                .build();
+
+        messages.add(message1);
+        messages.add(message2);
+
+
+
+        messageView.setRightBubbleColor(R.color.light_blue_50);
+        messageView.setLeftBubbleColor(R.color.pink_50);
+        messageView.setBackgroundColor(getResources().getColor(R.color.cyan_200));
+        messageView.setUsernameTextColor(R.color.grey_white_1000);
+        messageView.setSendTimeTextColor(R.color.grey_white_1000);
+
+        messageView.init(messages);
     }
 
 
@@ -140,26 +156,11 @@ public class PriseActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private void resultChange() {
-        addDataset();
+    @Override
+    protected void onDestroy(){
+        super.onDestroy();
 
+        realm.close();
     }
-
-
-//    public void setRecyclerView(){
-//        RealmResults<MotionTime> results = realm.where(MotionTime.class).findAll();
-//        List<MotionTime> items = realm.copyToRealm(results);
-//
-//        PriseRecyclerViewAdapter adapter = new PriseRecyclerViewAdapter();
-//
-//        recyclerView.setAdapter(adapter);
-//    }
-//
-//    @Override
-//    protected void onResume(){
-//        super.onResume();
-//
-//        setRecyclerView();
-//    }
 
 }

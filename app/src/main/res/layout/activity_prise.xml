@@ -26,14 +26,14 @@
         </android.support.v7.widget.Toolbar>
 
 
-        <android.support.v7.widget.RecyclerView
-
-            android:id="@+id/priseRecyclerView"
+        <com.github.bassaer.chatmessageview.view.MessageView
+            android:id="@+id/message_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:scrollbars="vertical">
-
-        </android.support.v7.widget.RecyclerView>
+            app:message_font_size="20sp"
+            app:username_font_size="16sp"
+            app:message_max_width="100dp"
+            app:time_label_font_size="16sp"/>
 
 
     </LinearLayout>

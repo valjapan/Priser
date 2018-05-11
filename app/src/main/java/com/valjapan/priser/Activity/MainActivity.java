@@ -18,7 +18,7 @@ import java.util.Random;
 import io.realm.Realm;
 
 public class MainActivity extends AppCompatActivity implements Runnable, View.OnClickListener {
-    private long startTime, endTime;
+    private long startTime, endTime, diffTime;
     private TextView timerTextView;
     private final Handler handler = new Handler();
     private volatile boolean stopRun = false;
@@ -146,7 +146,7 @@ public class MainActivity extends AppCompatActivity implements Runnable, View.On
                     endTime = System.currentTimeMillis();
                     // カウント時間 = 経過時間 - 開始時間
 
-                    long diffTime = (endTime - startTime);
+                    diffTime = (endTime - startTime);
 
 
                     long hh = (diffTime / (1000 * 60 * 60)) % 24; // 時
@@ -223,6 +223,7 @@ public class MainActivity extends AppCompatActivity implements Runnable, View.On
         MotionTime motionTime = new MotionTime();
         motionTime.startTime = startTime;
         motionTime.stopTime = endTime;
+        motionTime.resultTime = diffTime;
 
 
         realm.beginTransaction();

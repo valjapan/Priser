@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#00000000">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/item_view_usr_detail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:background="#00000000">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="70dp"
+                android:layout_marginRight="35dp"
+                android:layout_marginTop="4dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <com.daasuu.bl.BubbleLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:elevation="@dimen/cardview_compat_inset_shadow"
+                                app:bl_arrowDirection="right"
+                                app:bl_arrowHeight="8dp"
+                                app:bl_arrowWidth="10dp"
+                                app:bl_cornersRadius="10dp"
+                                app:bl_strokeWidth="1dp">
+
+                                <TextView
+                                    android:id="@+id/detail_self_details_text_view"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_below="@+id/detail_self_time"
+                                    android:layout_marginLeft="6dp"
+                                    android:layout_marginRight="6dp"
+                                    android:layout_weight="1"
+                                    android:background="@drawable/flame_style_talk"
+                                    android:text="Details:"
+                                    android:textColor="@color/grey_black_1000"
+                                    android:textIsSelectable="true"
+                                    android:textSize="15sp" />
+
+                            </com.daasuu.bl.BubbleLayout>
+
+                        </LinearLayout>
+
+                        <TextView
+                            android:id="@+id/detail_self_time"
+                            android:layout_width="40dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="bottom|left"
+                            android:text="Time:"
+                            android:textColor="@color/colorPrimary"
+                            android:textSize="12sp" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginTop="8dp"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/item_view_cpu_detail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:background="#00000000">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="70dp"
+                    android:layout_marginTop="4dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+
+                                <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+                                    android:id="@+id/profile_image"
+                                    android:layout_width="48dp"
+                                    android:layout_height="48dp"
+                                    android:src="@drawable/img_icon_01"
+                                    app:civ_border_color="#FF000000"
+                                    app:civ_border_width="2dp" />
+
+                                <com.daasuu.bl.BubbleLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:elevation="@dimen/cardview_compat_inset_shadow"
+                                    app:bl_arrowDirection="left"
+                                    app:bl_arrowHeight="8dp"
+                                    app:bl_arrowWidth="10dp"
+                                    app:bl_cornersRadius="10dp"
+                                    app:bl_strokeWidth="1dp">
+
+                                    <TextView
+                                        android:id="@+id/detail_chara_details_text_view"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_below="@+id/detail_self_time"
+                                        android:layout_marginLeft="6dp"
+                                        android:layout_marginRight="6dp"
+                                        android:layout_weight="1"
+                                        android:background="@drawable/flame_style_talk"
+                                        android:text="Details:"
+                                        android:textColor="@color/grey_black_1000"
+                                        android:textIsSelectable="true"
+                                        android:textSize="15sp" />
+
+                                </com.daasuu.bl.BubbleLayout>
+
+                            </LinearLayout>
+
+                            <TextView
+                                android:id="@+id/detail_chara_time"
+                                android:layout_width="44dp"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="bottom|right"
+                                android:text="Time:"
+                                android:textColor="@color/colorPrimary"
+                                android:textSize="12sp" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+</LinearLayout>
+
+
+
+
+
+

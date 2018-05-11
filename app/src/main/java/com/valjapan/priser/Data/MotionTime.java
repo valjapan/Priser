@@ -5,14 +5,17 @@ import io.realm.RealmObject;
 public class MotionTime extends RealmObject {
     public Long startTime;
     public Long stopTime;
+    public Long resultTime;
 
-    public MotionTime(){
+
+    public MotionTime() {
 
     }
 
-    public MotionTime(Long startTime,Long stopTime){
+    public MotionTime(Long startTime, Long stopTime, Long resultTime) {
         this.startTime = startTime;
         this.stopTime = stopTime;
+        this.resultTime = resultTime;
     }
 
     public void setStartTime(Long startTime) {
@@ -31,5 +34,11 @@ public class MotionTime extends RealmObject {
         return stopTime;
     }
 
+    public void setResultTime(Long resultTime) {
+        this.resultTime = resultTime;
+    }
 
+    private Long getResultTime() {
+        return resultTime;
+    }
 }

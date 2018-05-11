@@ -18,9 +18,25 @@
     </style>
 
     <style name="MyApp.Toolbar" parent="Widget.AppCompat.Toolbar">
-    <item name="android:background">@color/colorPrimary</item>
-    <item name="titleTextAppearance">@style/TextAppearance.AppCompat.Widget.ActionBar.Title.Inverse</item>
-    <item name="subtitleTextAppearance">@style/TextAppearance.AppCompat.Widget.ActionBar.Subtitle.Inverse</item>
-</style>
+        <item name="android:background">@color/colorPrimary</item>
+        <item name="titleTextAppearance">
+            @style/TextAppearance.AppCompat.Widget.ActionBar.Title.Inverse
+        </item>
+        <item name="subtitleTextAppearance">
+            @style/TextAppearance.AppCompat.Widget.ActionBar.Subtitle.Inverse
+        </item>
+    </style>
+
+    <style name="AppTheme.StartRaisedButton" parent="Theme.AppCompat.Light">
+        <item name="colorControlHighlight">@color/colorPrimaryDark</item>
+        <item name="colorButtonNormal">@color/colorPrimary</item>
+        <item name="android:textColor">@color/grey_white_1000</item>
+    </style>
+
+    <style name="AppTheme.StopRaisedButton" parent="Theme.AppCompat.Light">
+        <item name="colorControlHighlight">@color/pink_600</item>
+        <item name="colorButtonNormal">@color/colorAccent</item>
+        <item name="android:textColor">#FFFFFF</item>
+    </style>
 
 </resources>

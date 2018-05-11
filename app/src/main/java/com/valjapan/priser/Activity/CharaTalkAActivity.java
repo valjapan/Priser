@@ -15,8 +15,8 @@ public class CharaTalkAActivity extends AppCompatActivity {
     private TextView cpuTextView;
     private Boolean tOrF;
     private Random randomA = new Random();
-    private Random randomC = new Random();
-    private int numberA, numberC;
+    private Random randomD = new Random();
+    private int numberA, numberD;
     private ImageView cpuImageView;
 
 
@@ -27,7 +27,7 @@ public class CharaTalkAActivity extends AppCompatActivity {
         cpuTextView = findViewById(R.id.cpu_text_view);
         cpuImageView = findViewById(R.id.cpu_image_a);
         numberA = randomA.nextInt(6);
-        numberC = randomC.nextInt(6);
+        numberD = randomD.nextInt(5);
 
 
         Intent intent = getIntent();
@@ -79,24 +79,21 @@ public class CharaTalkAActivity extends AppCompatActivity {
 
     public void randomEndImage() {
 
-        switch (numberA) {
+        switch (numberD) {
             case 0:
-                cpuImageView.setImageResource(R.drawable.img_a_01);
+                cpuImageView.setImageResource(R.drawable.img_d_01);
                 break;
             case 1:
-                cpuImageView.setImageResource(R.drawable.img_a_02);
+                cpuImageView.setImageResource(R.drawable.img_d_02);
                 break;
             case 2:
-                cpuImageView.setImageResource(R.drawable.img_a_03);
+                cpuImageView.setImageResource(R.drawable.img_d_03);
                 break;
             case 3:
-                cpuImageView.setImageResource(R.drawable.img_a_04);
+                cpuImageView.setImageResource(R.drawable.img_d_04);
                 break;
             case 4:
-                cpuImageView.setImageResource(R.drawable.img_a_05);
-                break;
-            case 5:
-                cpuImageView.setImageResource(R.drawable.img_b_06);
+                cpuImageView.setImageResource(R.drawable.img_d_05);
                 break;
         }
 

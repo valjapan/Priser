@@ -14,7 +14,7 @@ import com.valjapan.priser.R;
 
 import java.util.List;
 
-public class PriseRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class PriseRecyclerViewAdapter extends RecyclerView.Adapter {
     private Context mContext;
     private List<Object> mObjects;
 
@@ -42,12 +42,11 @@ public class PriseRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater li = LayoutInflater.from(mContext);
-        switch (viewType) {
-            case CPU:
-                View itemView0 = li.inflate(R.layout.item_chara_detail, parent, false);
-                return new CpuViewHolder(itemView0);
+        switch (getItemViewType(viewType)) {
+
+
             case USER:
-                View itemView1 = li.inflate(R.layout.item_self_detail, parent, false);
+                View itemView1 = li.inflate(R.layout.item_detail, parent, false);
                 return new UserViewHolder(itemView1);
             default:
                 break;
