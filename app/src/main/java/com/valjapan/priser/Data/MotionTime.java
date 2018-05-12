@@ -3,42 +3,33 @@ package com.valjapan.priser.Data;
 import io.realm.RealmObject;
 
 public class MotionTime extends RealmObject {
-    public Long startTime;
-    public Long stopTime;
-    public Long resultTime;
+
+    public String resultTime;
+    public String nowTime;
 
 
     public MotionTime() {
 
     }
 
-    public MotionTime(Long startTime, Long stopTime, Long resultTime) {
-        this.startTime = startTime;
-        this.stopTime = stopTime;
+    public MotionTime(String nowTime, String resultTime) {
+        this.nowTime = nowTime;
         this.resultTime = resultTime;
     }
 
-    public void setStartTime(Long startTime) {
-        this.startTime = startTime;
+    public void setNowTime(String nowTime) {
+        this.nowTime = nowTime;
     }
 
-    public Long getStartTime() {
-        return startTime;
+    private String getNowTime() {
+        return nowTime;
     }
 
-    public void setStopTime(Long stopTime) {
-        this.stopTime = stopTime;
-    }
-
-    public Long getStopTime() {
-        return stopTime;
-    }
-
-    public void setResultTime(Long resultTime) {
+    public void setResultTime(String resultTime) {
         this.resultTime = resultTime;
     }
 
-    private Long getResultTime() {
+    private String getResultTime() {
         return resultTime;
     }
 }

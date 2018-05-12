@@ -7,13 +7,18 @@ import android.widget.TextView;
 import com.valjapan.priser.R;
 
 public class PriseRecyclerViewHolder extends RecyclerView.ViewHolder {
-    public TextView detailTextView;
-    public TextView timeTextView;
+    public TextView userDetailTextView;
+    public TextView userTimeTextView;
+    public TextView cpuDetailTextView;
+    public TextView cpuTimeTextView;
 
     public PriseRecyclerViewHolder(View itemView) {
         super(itemView);
-        detailTextView = (TextView) itemView.findViewById(R.id.detail_self_details_text_view);
-        timeTextView = (TextView) itemView.findViewById(R.id.detail_self_time);
+        userDetailTextView = (TextView) itemView.findViewById(R.id.detail_self_details_text_view);
+        userTimeTextView = (TextView) itemView.findViewById(R.id.detail_self_time);
+        cpuDetailTextView = (TextView) itemView.findViewById(R.id.detail_chara_details_text_view);
+        cpuTimeTextView = (TextView) itemView.findViewById(R.id.detail_chara_time);
+
 
     }
 }

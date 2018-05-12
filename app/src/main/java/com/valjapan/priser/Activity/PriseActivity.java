@@ -1,20 +1,18 @@
 package com.valjapan.priser.Activity;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.github.bassaer.chatmessageview.model.Message;
 import com.github.bassaer.chatmessageview.view.MessageView;
+import com.valjapan.priser.Adapter.PriseRecyclerViewAdapter;
 import com.valjapan.priser.Data.CpuMessage;
-import com.valjapan.priser.Data.MotionTime;
-import com.valjapan.priser.Data.User;
 import com.valjapan.priser.Data.UserMessage;
 import com.valjapan.priser.R;
 
@@ -24,7 +22,6 @@ import java.util.List;
 import java.util.Locale;
 
 import io.realm.Realm;
-import io.realm.RealmResults;
 
 public class PriseActivity extends AppCompatActivity {
 
@@ -37,6 +34,7 @@ public class PriseActivity extends AppCompatActivity {
     private UserMessage userData = new UserMessage();
     private CpuMessage cpuData = new CpuMessage();
     private List<Object> dataSet = new ArrayList<>();
+    private RecyclerView recyclerView;
 
     final Calendar calendar = Calendar.getInstance();
     int month = calendar.get(Calendar.MONTH);
@@ -64,11 +62,11 @@ public class PriseActivity extends AppCompatActivity {
             }
         });
 
-        messageView = (MessageView) findViewById(R.id.message_view);
+
+        recyclerView = (RecyclerView) findViewById(R.id.message_view);
 
 
-        setMessegeview();
-
+        setMessageView();
 
 
         Intent intent = getIntent();
@@ -87,52 +85,26 @@ public class PriseActivity extends AppCompatActivity {
 
     }
 
-    public void setMessegeview(){
-        ArrayList<Message> messages = new ArrayList<>();
-        RealmResults<MotionTime> results = realm.where(MotionTime.class).findAll();
+    public List<UserMessage> setMessageView() {
+
+        LinearLayoutManager llm = new LinearLayoutManager(this);
+
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(llm);
 
 
-        //User id
-        int myId = 0;
-        //User icon
-        Bitmap myIcon = BitmapFactory.decodeResource(getResources(), R.drawable.face_2);
-        //User name
-        String myName = "User";
+        List<UserMessage> dataset = new ArrayList<>();
 
-        int yourId = 1;
-        Bitmap yourIcon = BitmapFactory.decodeResource(getResources(), R.drawable.img_icon_01);
-        String yourName = "Cpu";
+        dataset.addAll(UserMessage.createDummyData());
 
-        final User me = new User(myId, myName, myIcon);
-        final User you = new User(yourId, yourName, yourIcon);
+        for (UserMessage userMessage : realm.where(UserMessage.class).findAll()) {
+            dataset.add(userMessage);
+        }
+        PriseRecyclerViewAdapter adapter = new PriseRecyclerViewAdapter(dataset);
+        recyclerView.setAdapter(adapter);
 
-        Message message1 = new Message.Builder()
-                .setUser(me)
-                .setText("AB")
-                .setRight(true)
-                .hideIcon(true)
-                .setUsernameVisibility(false)
-                .build();
+        return dataset;
 
-        Message message2 = new Message.Builder()
-                .setUser(you)
-                .setText("CD")
-                .setUsernameVisibility(false)
-                .setRight(false)
-                .build();
-
-        messages.add(message1);
-        messages.add(message2);
-
-
-
-        messageView.setRightBubbleColor(R.color.light_blue_50);
-        messageView.setLeftBubbleColor(R.color.pink_50);
-        messageView.setBackgroundColor(getResources().getColor(R.color.cyan_200));
-        messageView.setUsernameTextColor(R.color.grey_white_1000);
-        messageView.setSendTimeTextColor(R.color.grey_white_1000);
-
-        messageView.init(messages);
     }
 
 
@@ -157,10 +129,18 @@ public class PriseActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onDestroy(){
+    protected void onDestroy() {
         super.onDestroy();
 
+        finish();
         realm.close();
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+    }
+
 
 }

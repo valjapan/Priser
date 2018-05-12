@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -11,8 +12,12 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.valjapan.priser.Data.MotionTime;
+import com.valjapan.priser.Data.UserMessage;
 import com.valjapan.priser.R;
 
+import java.sql.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Random;
 
 import io.realm.Realm;
@@ -24,6 +29,7 @@ public class MainActivity extends AppCompatActivity implements Runnable, View.On
     private volatile boolean stopRun = false;
     private Button startButton, stopButton;
     private Boolean startOrFinish = true;
+    private String time, cpuMessage, minuts;
     private int numberLog;
     private Random random = new Random();
     private android.support.v7.widget.Toolbar toolbar;
@@ -59,6 +65,7 @@ public class MainActivity extends AppCompatActivity implements Runnable, View.On
         long mm = 00 / 1000 / 60; // 分
         long ss = 00 / 1000 % 60; // 秒
         String time = String.format("%1$02d:%2$02d:%3$02d", hh, mm, ss);
+
 
         timerTextView.setText(time);
 
@@ -149,12 +156,14 @@ public class MainActivity extends AppCompatActivity implements Runnable, View.On
                     diffTime = (endTime - startTime);
 
 
-                    long hh = (diffTime / (1000 * 60 * 60)) % 24; // 時
-                    long mm = (diffTime / (1000 * 60)) % 60; // 分
-                    long ss = (diffTime / 1000) % 60; // 秒
-                    String time = String.format("%1$02d:%2$02d:%3$02d", hh, mm, ss);
+                    int hh = (int) (diffTime / (1000 * 60 * 60)) % 24; // 時
+                    int mm = (int) (diffTime / (1000 * 60)) % 60; // 分
+                    int ss = (int) (diffTime / 1000) % 60; // 秒
 
+                    time = String.format("%02d:%02d:%02d", hh, mm, ss);
 //                    Log.d("Time", time);
+
+                    minuts = String.valueOf(mm + "分");
 
 
                     timerTextView.setText(time);
@@ -220,23 +229,54 @@ public class MainActivity extends AppCompatActivity implements Runnable, View.On
 
     public void saveTime(final Long startTime, final Long endTime) {
 
-        MotionTime motionTime = new MotionTime();
-        motionTime.startTime = startTime;
-        motionTime.stopTime = endTime;
-        motionTime.resultTime = diffTime;
+        Random random = new Random();
+        int i = random.nextInt(2);
+
+        if (i == 0) {
+            cpuMessage = "今日もお疲れ様！";
+        } else if (i == 1) {
+            cpuMessage = minuts + "もやったの！？　えらい！";
+        }
 
 
-        realm.beginTransaction();
-        realm.copyToRealm(motionTime);
-        realm.commitTransaction();
+        realm.executeTransaction(new Realm.Transaction() {
+            @Override
+            public void execute(Realm realm) {
+
+                final DateFormat df = new SimpleDateFormat("MM/dd HH:mm:ss");
+                final Date date = new Date(System.currentTimeMillis());
+                df.format(date);
+                String dateString = date.toString();
+
+                MotionTime motionTime = realm.createObject(MotionTime.class);
+                motionTime.resultTime = time;
+                motionTime.nowTime = dateString;
+                Log.d("save", time + " " + dateString);
+
+
+                UserMessage userMessage = realm.createObject(UserMessage.class); // お前
+                userMessage.userDetail = "今日は" + minuts + "運動した！";
+                userMessage.userTime = dateString;
+                userMessage.cpuDetail = cpuMessage;
+                userMessage.cpuTime = dateString;
+
+            }
+        });
+
+
+//        realm.commitTransaction();
 
     }
+
+    public void saveMessege() {
+
+    }
+
 
     protected void onDestroy() {
         super.onDestroy();
 
         realm.close();
     }
-
 
 }
