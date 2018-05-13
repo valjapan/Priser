@@ -6,8 +6,10 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.realm.implementation.RealmBarDataSet;
+import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
 import com.valjapan.priser.Data.MotionTime;
 import com.valjapan.priser.R;
@@ -29,7 +31,8 @@ public class GraphActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_graph);
         realm = Realm.getDefaultInstance();
-        setData();
+        mBarChart = (BarChart) findViewById(R.id.graph);
+
 
         final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_graph);
         setSupportActionBar(toolbar);
@@ -45,15 +48,34 @@ public class GraphActivity extends AppCompatActivity {
 
     }
 
-    public List<IBarDataSet> setData() {
+    public RealmBarDataSet(RealmResults<MotionTime> results, String xValuesField, String yValuesField) {
+
+
+    }
+
+    public BarData(List < IBarDataSet > setData() {
+
         RealmResults<MotionTime> results = realm.where(MotionTime.class).findAll();
 
-        RealmBarDataSet<MotionTime> dataSet = new RealmBarDataSet<MotionTime>(results, "xValue", "yValue");
 
+        IAxisValueFormatter formatter = new IAxisValueFormatter() {
+
+            @Override
+            public String getFormattedValue(float value, AxisBase axis) {
+                return results.get((int) value).getTotalScore();
+            }
+
+            @Override
+            public int getDecimalDigits() {
+                return 0;
+            }
+        };
+
+        RealmBarDataSet<MotionTime> dataSet = new RealmBarDataSet<MotionTime>(results,);
         ArrayList<IBarDataSet> dataSetList = new ArrayList<IBarDataSet>();
         dataSetList.add(dataSet);
 
-        mBarChart = (BarChart) findViewById(R.id.graph);
+
         BarData data = new BarData(dataSet);
         mBarChart.setData(data);
         mBarChart.invalidate(); // refresh
@@ -62,4 +84,6 @@ public class GraphActivity extends AppCompatActivity {
         return dataSetList;
 
     }
+
+
 }

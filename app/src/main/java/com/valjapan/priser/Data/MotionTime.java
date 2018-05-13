@@ -4,9 +4,9 @@ import io.realm.RealmObject;
 
 public class MotionTime extends RealmObject {
 
-    public float totalScore;
-    public float resultTime;
-    public String nowDate;
+    private float totalScore;
+    private float resultTime;
+    private String nowDate;
 
 
     public MotionTime() {
