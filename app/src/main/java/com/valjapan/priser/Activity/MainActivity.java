@@ -29,8 +29,8 @@ public class MainActivity extends AppCompatActivity implements Runnable, View.On
     private volatile boolean stopRun = false;
     private Button startButton, stopButton;
     private Boolean startOrFinish = true;
-    private String time, cpuMessage, minuts;
-    private int numberLog;
+    private String time, cpuMessage, minuts, dateString;
+    private long timeGraph;
     private Random random = new Random();
     private android.support.v7.widget.Toolbar toolbar;
 
@@ -162,6 +162,7 @@ public class MainActivity extends AppCompatActivity implements Runnable, View.On
 
                     time = String.format("%02d:%02d:%02d", hh, mm, ss);
 //                    Log.d("Time", time);
+                    timeGraph = mm;
 
                     minuts = String.valueOf(mm + "分");
 
@@ -246,11 +247,12 @@ public class MainActivity extends AppCompatActivity implements Runnable, View.On
                 final DateFormat df = new SimpleDateFormat("MM/dd HH:mm:ss");
                 final Date date = new Date(System.currentTimeMillis());
                 df.format(date);
-                String dateString = date.toString();
+                dateString = date.toString();
 
                 MotionTime motionTime = realm.createObject(MotionTime.class);
-                motionTime.resultTime = time;
-                motionTime.nowTime = dateString;
+                motionTime = new MotionTime(timeGraph, 0f, dateString);
+
+
                 Log.d("save", time + " " + dateString);
 
 
@@ -263,8 +265,6 @@ public class MainActivity extends AppCompatActivity implements Runnable, View.On
             }
         });
 
-
-//        realm.commitTransaction();
 
     }
 
