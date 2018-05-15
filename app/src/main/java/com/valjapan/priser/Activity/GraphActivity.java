@@ -5,20 +5,19 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
+import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.BarChart;
-import com.github.mikephil.charting.components.AxisBase;
+import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.BarData;
-import com.github.mikephil.charting.data.realm.implementation.RealmBarDataSet;
-import com.github.mikephil.charting.formatter.IAxisValueFormatter;
-import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
+import com.github.mikephil.charting.data.BarDataSet;
+import com.github.mikephil.charting.data.BarEntry;
 import com.valjapan.priser.Data.MotionTime;
+import com.valjapan.priser.Data.NowTime;
 import com.valjapan.priser.R;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import io.realm.Realm;
-import io.realm.RealmResults;
 
 public class GraphActivity extends AppCompatActivity {
 
@@ -32,12 +31,12 @@ public class GraphActivity extends AppCompatActivity {
         setContentView(R.layout.activity_graph);
         realm = Realm.getDefaultInstance();
         mBarChart = (BarChart) findViewById(R.id.graph);
-
+        createBarChart();
 
         final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_graph);
         setSupportActionBar(toolbar);
-
         setTitle("Graph Activity");
+
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_24dp);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -48,42 +47,66 @@ public class GraphActivity extends AppCompatActivity {
 
     }
 
-    public RealmBarDataSet(RealmResults<MotionTime> results, String xValuesField, String yValuesField) {
+    private void createBarChart() {
+
+        mBarChart.getAxisRight().setEnabled(false);
+        mBarChart.getAxisLeft().setEnabled(true);
+        mBarChart.setDrawGridBackground(true);
+        mBarChart.setDrawBarShadow(false);
+        mBarChart.setEnabled(true);
+
+        mBarChart.setTouchEnabled(true);
+        mBarChart.setPinchZoom(true);
+        mBarChart.setDoubleTapToZoomEnabled(true);
 
 
+        mBarChart.setScaleEnabled(true);
+
+        mBarChart.getLegend().setEnabled(true);
+
+        //X軸周り
+        XAxis xAxis = mBarChart.getXAxis();
+        xAxis.setDrawLabels(true);
+        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+        xAxis.setDrawGridLines(true);
+        xAxis.setLabelRotationAngle(0);
+
+        mBarChart.setData(createBarChartData());
+
+        mBarChart.invalidate();
+        // アニメーション
+        mBarChart.animateY(2000, Easing.EasingOption.EaseInBack);
     }
 
-    public BarData(List < IBarDataSet > setData() {
+    // BarChartの設定
+    private BarData createBarChartData() {
+        ArrayList<BarDataSet> barDataSets = new ArrayList<>();
 
-        RealmResults<MotionTime> results = realm.where(MotionTime.class).findAll();
+        // X軸
+        ArrayList<String> xValues = new ArrayList<>();
+        for (NowTime nowTime : realm.where(NowTime.class).findAll()) {
+            xValues.add(nowTime.nowToday);
+        }
 
+        // value
+        ArrayList<BarEntry> values = new ArrayList<>();
 
-        IAxisValueFormatter formatter = new IAxisValueFormatter() {
-
-            @Override
-            public String getFormattedValue(float value, AxisBase axis) {
-                return results.get((int) value).getTotalScore();
+        for (MotionTime motionTime : realm.where(MotionTime.class).findAll()) {
+            for (int i = 1; i < 31; i++) {
+                values.add(new BarEntry(motionTime.totalScore, i));
             }
+        }
 
-            @Override
-            public int getDecimalDigits() {
-                return 0;
-            }
-        };
+        BarDataSet valuesDataSet = new BarDataSet(values, "運動した時間");
+        valuesDataSet.setColor(R.color.colorPrimary);
 
-        RealmBarDataSet<MotionTime> dataSet = new RealmBarDataSet<MotionTime>(results,);
-        ArrayList<IBarDataSet> dataSetList = new ArrayList<IBarDataSet>();
-        dataSetList.add(dataSet);
+        BarData barData = new BarData(valuesDataSet);
+        mBarChart.setData(barData);
+        mBarChart.invalidate();
 
-
-        BarData data = new BarData(dataSet);
-        mBarChart.setData(data);
-        mBarChart.invalidate(); // refresh
-
-
-        return dataSetList;
+        return barData;
 
     }
-
 
 }
+

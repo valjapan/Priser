@@ -4,44 +4,24 @@ import io.realm.RealmObject;
 
 public class MotionTime extends RealmObject {
 
-    private float totalScore;
-    private float resultTime;
-    private String nowDate;
+    public int totalScore; //何分運動したか
 
 
     public MotionTime() {
 
     }
 
-    public MotionTime(float resultTime, float totalScore, String nowDate) {
+    public MotionTime(int totalScore) {
 
-        this.resultTime = resultTime;
         this.totalScore = totalScore;
-        this.nowDate = nowDate;
     }
 
-
-    public void setResultTime(float resultTime) {
-        this.resultTime = resultTime;
-    }
-
-    private float getResultTime() {
-        return resultTime;
-    }
-
-    public float getTotalScore() {
+    public int getTotalScore() {
         return totalScore;
     }
 
-    public void setTotalScore(float totalScore) {
+    public void setTotalScore(int totalScore) {
         this.totalScore = totalScore;
     }
-
-    public String getNowDate() {
-        return nowDate;
-    }
-
-    public void setNowDate(String nowDate) {
-        this.nowDate = nowDate;
-    }
 }
+

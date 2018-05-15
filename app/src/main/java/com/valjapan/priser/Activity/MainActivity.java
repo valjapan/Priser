@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.valjapan.priser.Data.MotionTime;
+import com.valjapan.priser.Data.NowTime;
 import com.valjapan.priser.Data.UserMessage;
 import com.valjapan.priser.R;
 
@@ -30,7 +31,7 @@ public class MainActivity extends AppCompatActivity implements Runnable, View.On
     private Button startButton, stopButton;
     private Boolean startOrFinish = true;
     private String time, cpuMessage, minuts, dateString;
-    private long timeGraph;
+    private int timeGraph;
     private Random random = new Random();
     private android.support.v7.widget.Toolbar toolbar;
 
@@ -45,7 +46,7 @@ public class MainActivity extends AppCompatActivity implements Runnable, View.On
         toolbar = findViewById(R.id.toolbar_main);
         setSupportActionBar(toolbar);
 
-        setTitle("Main Activity");
+        setTitle("Priser");
 
 
         realm = Realm.getDefaultInstance();
@@ -240,6 +241,7 @@ public class MainActivity extends AppCompatActivity implements Runnable, View.On
         }
 
 
+
         realm.executeTransaction(new Realm.Transaction() {
             @Override
             public void execute(Realm realm) {
@@ -250,13 +252,16 @@ public class MainActivity extends AppCompatActivity implements Runnable, View.On
                 dateString = date.toString();
 
                 MotionTime motionTime = realm.createObject(MotionTime.class);
-                motionTime = new MotionTime(timeGraph, 0f, dateString);
+                motionTime.totalScore = timeGraph;
+
+                NowTime nowTime = realm.createObject(NowTime.class);
+                nowTime.nowToday = dateString;
 
 
                 Log.d("save", time + " " + dateString);
 
 
-                UserMessage userMessage = realm.createObject(UserMessage.class); // お前
+                UserMessage userMessage = realm.createObject(UserMessage.class);
                 userMessage.userDetail = "今日は" + minuts + "運動した！";
                 userMessage.userTime = dateString;
                 userMessage.cpuDetail = cpuMessage;

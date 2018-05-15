@@ -53,7 +53,7 @@ public class PriseActivity extends AppCompatActivity {
         final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_prise);
         setSupportActionBar(toolbar);
 
-        setTitle("Prise Activity");
+        setTitle("Chat");
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_24dp);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -95,7 +95,7 @@ public class PriseActivity extends AppCompatActivity {
 
         List<UserMessage> dataset = new ArrayList<>();
 
-        dataset.addAll(UserMessage.createDummyData());
+//        dataset.addAll(UserMessage.createDummyData());
 
         for (UserMessage userMessage : realm.where(UserMessage.class).findAll()) {
             dataset.add(userMessage);
