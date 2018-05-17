@@ -38,18 +38,19 @@
 
                         <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_height="48dp"
                             android:orientation="horizontal">
 
                             <com.daasuu.bl.BubbleLayout
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
+                                android:layout_height="match_parent"
                                 android:elevation="@dimen/cardview_compat_inset_shadow"
                                 app:bl_arrowDirection="right"
                                 app:bl_arrowHeight="8dp"
                                 app:bl_arrowWidth="10dp"
                                 app:bl_cornersRadius="10dp"
                                 app:bl_strokeWidth="1dp">
+
 
                                 <TextView
                                     android:id="@+id/detail_self_details_text_view"
@@ -58,12 +59,13 @@
                                     android:layout_below="@+id/detail_self_time"
                                     android:layout_marginLeft="6dp"
                                     android:layout_marginRight="6dp"
+                                    android:layout_gravity="center_vertical"
                                     android:layout_weight="1"
-                                    android:background="@drawable/flame_style_talk"
+                                    android:gravity="center"
                                     android:text="Details:"
                                     android:textColor="@color/grey_black_1000"
-                                    android:textIsSelectable="true"
                                     android:textSize="15sp" />
+
 
                             </com.daasuu.bl.BubbleLayout>
 
@@ -123,17 +125,16 @@
                                 android:layout_height="wrap_content"
                                 android:orientation="horizontal">
 
-                                <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+                                <ImageView
                                     android:id="@+id/profile_image"
                                     android:layout_width="48dp"
                                     android:layout_height="48dp"
                                     android:src="@drawable/img_icon_01"
-                                    app:civ_border_color="#FF000000"
-                                    app:civ_border_width="2dp" />
+                                    />
 
                                 <com.daasuu.bl.BubbleLayout
                                     android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
+                                    android:layout_height="match_parent"
                                     android:elevation="@dimen/cardview_compat_inset_shadow"
                                     app:bl_arrowDirection="left"
                                     app:bl_arrowHeight="8dp"
@@ -145,11 +146,11 @@
                                         android:id="@+id/detail_chara_details_text_view"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:layout_below="@+id/detail_self_time"
                                         android:layout_marginLeft="6dp"
                                         android:layout_marginRight="6dp"
+                                        android:layout_gravity="center_vertical"
                                         android:layout_weight="1"
-                                        android:background="@drawable/flame_style_talk"
+                                        android:gravity="center"
                                         android:text="Details:"
                                         android:textColor="@color/grey_black_1000"
                                         android:textIsSelectable="true"

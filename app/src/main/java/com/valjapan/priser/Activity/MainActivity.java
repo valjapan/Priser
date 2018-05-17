@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity implements Runnable, View.On
     private volatile boolean stopRun = false;
     private Button startButton, stopButton;
     private Boolean startOrFinish = true;
-    private String time, cpuMessage, minuts, dateString;
+    private String time, cpuMessage, minits, dateString;
     private int timeGraph;
     private Random random = new Random();
     private android.support.v7.widget.Toolbar toolbar;
@@ -165,7 +165,7 @@ public class MainActivity extends AppCompatActivity implements Runnable, View.On
 //                    Log.d("Time", time);
                     timeGraph = mm;
 
-                    minuts = String.valueOf(mm + "分");
+                    minits = String.valueOf(mm + "分");
 
 
                     timerTextView.setText(time);
@@ -232,14 +232,19 @@ public class MainActivity extends AppCompatActivity implements Runnable, View.On
     public void saveTime(final Long startTime, final Long endTime) {
 
         Random random = new Random();
-        int i = random.nextInt(2);
+        int i = random.nextInt(5);
 
         if (i == 0) {
             cpuMessage = "今日もお疲れ様！";
         } else if (i == 1) {
-            cpuMessage = minuts + "もやったの！？　えらい！";
+            cpuMessage = minits + "もやったの！？　えらい！";
+        } else if (i == 2) {
+            cpuMessage = "お疲れ様でした！";
+        } else if (i == 3) {
+            cpuMessage = "明日も頑張ろう！！！";
+        } else if (i == 4) {
+            cpuMessage = "続けられててすごい！";
         }
-
 
 
         realm.executeTransaction(new Realm.Transaction() {
@@ -262,7 +267,7 @@ public class MainActivity extends AppCompatActivity implements Runnable, View.On
 
 
                 UserMessage userMessage = realm.createObject(UserMessage.class);
-                userMessage.userDetail = "今日は" + minuts + "運動した！";
+                userMessage.userDetail = "今日は" + minits + "運動した！";
                 userMessage.userTime = dateString;
                 userMessage.cpuDetail = cpuMessage;
                 userMessage.cpuTime = dateString;

@@ -35,7 +35,7 @@ public class GraphActivity extends AppCompatActivity {
 
         final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_graph);
         setSupportActionBar(toolbar);
-        setTitle("Graph Activity");
+        setTitle("Graph");
 
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_24dp);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -48,6 +48,8 @@ public class GraphActivity extends AppCompatActivity {
     }
 
     private void createBarChart() {
+
+        mBarChart.getAxisLeft().setAxisMaxValue(60f);
 
         mBarChart.getAxisRight().setEnabled(false);
         mBarChart.getAxisLeft().setEnabled(true);
@@ -75,7 +77,7 @@ public class GraphActivity extends AppCompatActivity {
 
         mBarChart.invalidate();
         // アニメーション
-        mBarChart.animateY(2000, Easing.EasingOption.EaseInBack);
+        mBarChart.animateXY(2000, 2000, Easing.EasingOption.EaseInBack, Easing.EasingOption.EaseInBounce);
     }
 
     // BarChartの設定
@@ -84,26 +86,32 @@ public class GraphActivity extends AppCompatActivity {
 
         // X軸
         ArrayList<String> xValues = new ArrayList<>();
+
         for (NowTime nowTime : realm.where(NowTime.class).findAll()) {
             xValues.add(nowTime.nowToday);
+
         }
+
 
         // value
         ArrayList<BarEntry> values = new ArrayList<>();
+        int i = 1;
 
         for (MotionTime motionTime : realm.where(MotionTime.class).findAll()) {
-            for (int i = 1; i < 31; i++) {
-                values.add(new BarEntry(motionTime.totalScore, i));
-            }
+            values.add(new BarEntry(i, motionTime.totalScore));
+            i++;
         }
 
         BarDataSet valuesDataSet = new BarDataSet(values, "運動した時間");
-        valuesDataSet.setColor(R.color.colorPrimary);
+
+        barDataSets.add(valuesDataSet);
+
 
         BarData barData = new BarData(valuesDataSet);
         mBarChart.setData(barData);
         mBarChart.invalidate();
 
+        mBarChart.setFitBars(true);
         return barData;
 
     }

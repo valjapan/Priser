@@ -35,10 +35,39 @@ public class CharaTalkAActivity extends AppCompatActivity {
         tOrF = (Boolean) bundle.get("check_time");
         if (tOrF) {
             randomStartImage();
-            cpuTextView.setText("今日も頑張ってね！");
+            Random random = new Random();
+            int i = random.nextInt(3);
+            switch (i) {
+                case 0:
+                    cpuTextView.setText("今日も頑張ってね！");
+                    break;
+                case 1:
+                    cpuTextView.setText("その調子だよ！");
+                    break;
+                case 2:
+                    cpuTextView.setText("毎日頑張ってるね！");
+                    break;
+
+            }
         } else {
             randomEndImage();
-            cpuTextView.setText("お疲れ様でした！");
+
+            Random random = new Random();
+            int i = random.nextInt(4);
+            switch (i) {
+                case 0:
+                    cpuTextView.setText("お疲れ様でした！");
+                    break;
+                case 1:
+                    cpuTextView.setText("なかなか良い調子だね！！");
+                    break;
+                case 2:
+                    cpuTextView.setText("明日も頑張ろう！！！");
+                    break;
+                case 3:
+                    cpuTextView.setText("続けられててすごい！");
+                    break;
+            }
         }
 
         killActivity();
