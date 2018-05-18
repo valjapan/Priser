@@ -7,6 +7,7 @@ import android.view.View;
 
 import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
@@ -31,6 +32,12 @@ public class GraphActivity extends AppCompatActivity {
         setContentView(R.layout.activity_graph);
         realm = Realm.getDefaultInstance();
         mBarChart = (BarChart) findViewById(R.id.graph);
+
+        Description description = new Description();
+        description.setText("運動グラフ");
+        description.setTextSize(16f);
+        mBarChart.setDescription(description);
+
         createBarChart();
 
         final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_graph);
@@ -49,7 +56,6 @@ public class GraphActivity extends AppCompatActivity {
 
     private void createBarChart() {
 
-        mBarChart.getAxisLeft().setAxisMaxValue(60f);
         mBarChart.getAxisLeft().setDrawZeroLine(true);
         mBarChart.getAxisRight().setEnabled(false);
         mBarChart.getAxisLeft().setEnabled(true);
@@ -102,10 +108,10 @@ public class GraphActivity extends AppCompatActivity {
             i++;
         }
 
-        BarDataSet valuesDataSet = new BarDataSet(values, "運動した時間");
+        BarDataSet valuesDataSet = new BarDataSet(values, "運動した時間(分)");
 
         barDataSets.add(valuesDataSet);
-        valuesDataSet.setColors(new int[]{R.color.colorPrimary},this);
+        valuesDataSet.setColors(new int[]{R.color.colorPrimary}, this);
 
 
         BarData barData = new BarData(valuesDataSet);

@@ -1,10 +1,13 @@
 package com.valjapan.priser.Activity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -30,7 +33,7 @@ public class MainActivity extends AppCompatActivity implements Runnable, View.On
     private volatile boolean stopRun = false;
     private Button startButton, stopButton;
     private Boolean startOrFinish = true;
-    private String time, cpuMessage, minits, dateString;
+    private String time, cpuMessage, minutes, dateString;
     private int timeGraph;
     private Random random = new Random();
     private android.support.v7.widget.Toolbar toolbar;
@@ -165,7 +168,7 @@ public class MainActivity extends AppCompatActivity implements Runnable, View.On
 //                    Log.d("Time", time);
                     timeGraph = mm + hh * 60;
 
-                    minits = String.valueOf(mm + "分");
+                    minutes = String.valueOf(mm + hh * 60 + "分");
 
 
                     timerTextView.setText(time);
@@ -237,7 +240,7 @@ public class MainActivity extends AppCompatActivity implements Runnable, View.On
         if (i == 0) {
             cpuMessage = "今日もお疲れ様！";
         } else if (i == 1) {
-            cpuMessage = minits + "もやったの！？　えらい！";
+            cpuMessage = minutes + "もやったの！？　えらい！";
         } else if (i == 2) {
             cpuMessage = "お疲れ様でした！";
         } else if (i == 3) {
@@ -248,6 +251,7 @@ public class MainActivity extends AppCompatActivity implements Runnable, View.On
 
 
         realm.executeTransaction(new Realm.Transaction() {
+
             @Override
             public void execute(Realm realm) {
 
@@ -269,7 +273,7 @@ public class MainActivity extends AppCompatActivity implements Runnable, View.On
 
 
                 UserMessage userMessage = realm.createObject(UserMessage.class);
-                userMessage.userDetail = "今日は" + minits + "運動した！";
+                userMessage.userDetail = "今日は" + minutes + "運動した！";
                 userMessage.userTime = dateString;
                 userMessage.cpuDetail = cpuMessage;
                 userMessage.cpuTime = dateString;
@@ -291,4 +295,33 @@ public class MainActivity extends AppCompatActivity implements Runnable, View.On
         realm.close();
     }
 
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            new AlertDialog.Builder(this)
+                    .setTitle("注意")
+                    .setMessage("アプリを終了してもよろしいですか？")
+                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            // 自動生成されたメソッド・スタブ
+                            MainActivity.this.finish();
+                        }
+                    })
+                    .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            // 自動生成されたメソッド・スタブ
+                        }
+                    })
+                    .show();
+            return true;
+
+        }
+
+        return false;
+
+    }
 }
