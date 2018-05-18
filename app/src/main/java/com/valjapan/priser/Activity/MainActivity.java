@@ -163,7 +163,7 @@ public class MainActivity extends AppCompatActivity implements Runnable, View.On
 
                     time = String.format("%02d:%02d:%02d", hh, mm, ss);
 //                    Log.d("Time", time);
-                    timeGraph = mm;
+                    timeGraph = mm + hh * 60;
 
                     minits = String.valueOf(mm + "分");
 
@@ -258,6 +258,8 @@ public class MainActivity extends AppCompatActivity implements Runnable, View.On
 
                 MotionTime motionTime = realm.createObject(MotionTime.class);
                 motionTime.totalScore = timeGraph;
+
+                Log.d("NowTime", "" + timeGraph);
 
                 NowTime nowTime = realm.createObject(NowTime.class);
                 nowTime.nowToday = dateString;

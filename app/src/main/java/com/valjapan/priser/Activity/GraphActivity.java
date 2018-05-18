@@ -50,7 +50,7 @@ public class GraphActivity extends AppCompatActivity {
     private void createBarChart() {
 
         mBarChart.getAxisLeft().setAxisMaxValue(60f);
-
+        mBarChart.getAxisLeft().setDrawZeroLine(true);
         mBarChart.getAxisRight().setEnabled(false);
         mBarChart.getAxisLeft().setEnabled(true);
         mBarChart.setDrawGridBackground(true);
@@ -105,6 +105,7 @@ public class GraphActivity extends AppCompatActivity {
         BarDataSet valuesDataSet = new BarDataSet(values, "運動した時間");
 
         barDataSets.add(valuesDataSet);
+        valuesDataSet.setColors(new int[]{R.color.colorPrimary},this);
 
 
         BarData barData = new BarData(valuesDataSet);
